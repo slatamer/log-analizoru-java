@@ -6,39 +6,36 @@ Bu proje, Java programlama dili kullanılarak geliştirilmiş, **Nesne Yöneliml
 
 ## Öne Çıkan Özellikler
 
-*   ** Dinamik Analiz:** Firewall, Kimlik Doğrulama (Auth) ve Ağ (Network) loglarını türlerine özgü kriterlerle inceler.
-*   ** Akıllı Skorlama:** Her log türü için 0.0 - 10.0 arasında özelleştirilmiş risk puanlaması yapar.
-*   ** Anlık Raporlama:** Hesaplanan skorlara göre logları anında kategorize eder.
-*   ** Etkileşimli Arayüz:** Kullanıcı dostu konsol menüsü ile çalışma anında veri girişi ve analiz imkanı sağlar.
+*   **Dinamik Log Analizi:** Firewall, Kimlik Doğrulama (Auth) ve Ağ (Network) loglarını türlerine özgü kriterlerle analiz eder.
+*   **Akıllı Risk Skorlama:** Her log türü için özelleştirilmiş matematiksel modellerle 0.0 ile 10.0 arasında risk puanı hesaplar.
+*   **Kritiklik Seviyesi Raporlama:** Hesaplanan skorlara göre logları "GÜVENLİ", "ŞÜPHELİ" veya "KRİTİK" olarak kategorize eder.
+*   **Etkileşimli Menü:** Kullanıcının çalışma anında yeni loglar eklemesine ve anlık analiz raporları almasına olanak tanıyan kullanıcı dostu arayüz.
+   
+---
+
+## Kullanılan Yazılım Mimarisi
+
+Proje, sürdürülebilir ve genişletilebilir bir yapı için **Nesne Yönelimli Programlama (OOP)** prensipleri üzerine inşa edilmiştir:
+
+*   **Kalıtım & Soyutlama (Inheritance & Abstraction):** Tüm log türleri, ortak özellikleri barındıran soyut bir `Log` sınıfından türetilmiştir.
+*   **Çok Biçimlilik (Polymorphism):** `LogYonetim` sınıfı, farklı türdeki tüm logları tek bir `ArrayList` içinde dinamik olarak işleyebilir.
+*   **Kapsülleme (Encapsulation):** Log verileri `private` erişim belirleyicilerle korunarak veri bütünlüğü sağlanmıştır.
 
 ---
 
 ## Teknik Detaylar & Risk Analizi
+Bu sistem, siber güvenlik dünyasındaki SOC (Security Operations Center) süreçlerinin temel mantığını koda dökmektedir:
 
-Sistem, siber güvenlik dünyasındaki SOC süreçlerini şu üç ana başlıkta simüle eder:
-
-| Log Türü | Analiz Kapsamı | Örnek Senaryo |
-| :--- | :--- | :--- |
-| **Firewall** | Port denetimi | Kritik portlara (SSH, FTP) erişim istekleri. |
-| **Auth** | Brute Force tespiti | Hatalı giriş deneme sayılarının analizi. |
-| **Network** | Veri Sızıntısı (Exfiltration) | Giren/Çıkan veri miktarı arasındaki anomaliler. |
-
+*   **Firewall Denetimi:** Kritik portlara (SSH, FTP vb.) yönelik erişim isteklerini denetler.
+*   **Brute Force Tespiti:** Hatalı giriş deneme sayılarını analiz ederek hesap güvenliğini kontrol eder.
+*   **Veri Sızıntısı Analizi:** Giren ve çıkan veri miktarı arasındaki anomalileri tespit eder.
+* 
 ### ⚠️ Risk Seviyeleri
 | Skor Aralığı | Durum |
 | :--- | :--- |
 | **0.0 - 4.0** | ✅ GÜVENLİ |
 | **4.0 - 7.5** | ⚠️ ŞÜPHELİ |
 | **7.5 - 10.0** | 🚨 KRİTİK |
-
----
-
-## Kullanılan Yazılım Mimarisi (OOP)
-
-Proje, sürdürülebilir ve genişletilebilir bir yapı için şu prensipler üzerine inşa edilmiştir:
-
-*   **Kalıtım & Soyutlama (Inheritance & Abstraction):** Tüm log türleri, ortak özellikleri barındıran soyut bir `Log` sınıfından türetilmiştir.
-*   **Çok Biçimlilik (Polymorphism):** `LogYonetim` sınıfı, farklı türdeki tüm logları tek bir `ArrayList` içinde dinamik olarak işleyebilir.
-*   **Kapsülleme (Encapsulation):** Log verileri `private` erişim belirleyicilerle korunarak veri bütünlüğü sağlanmıştır.
 
 ---
 
