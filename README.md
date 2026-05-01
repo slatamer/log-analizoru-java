@@ -1,29 +1,46 @@
 # 🛡️ Java ile Siber Güvenlik Log Analizörü (Konsol Uygulaması)
 
-Bu proje, Java programlama dili kullanılarak geliştirilmiş, nesne yönelimli bir log analiz sistemidir. Farklı ağ katmanlarından gelen verileri sınıflandırarak güvenlik risk skorlarını hesaplar ve siber tehdit tespiti için temel bir altyapı sunar.
+Bu proje, Java programlama dili kullanılarak geliştirilmiş, **Nesne Yönelimli Programlama (OOP)** prensiplerine dayalı bir log analiz sistemidir. Farklı ağ katmanlarından gelen verileri sınıflandırır, güvenlik risk skorlarını hesaplar ve siber tehdit tespiti için temel bir SOC (Security Operations Center) altyapısı sunar.
+
+---
 
 ## Öne Çıkan Özellikler
 
-*   **Dinamik Log Analizi:** Firewall, Kimlik Doğrulama (Auth) ve Ağ (Network) loglarını türlerine özgü kriterlerle analiz eder.
-*   **Akıllı Risk Skorlama:** Her log türü için özelleştirilmiş matematiksel modellerle 0.0 ile 10.0 arasında risk puanı hesaplar.
-*   **Kritiklik Seviyesi Raporlama:** Hesaplanan skorlara göre logları "GÜVENLİ", "ŞÜPHELİ" veya "KRİTİK" olarak kategorize eder.
-*   **Etkileşimli Menü:** Kullanıcının çalışma anında yeni loglar eklemesine ve anlık analiz raporları almasına olanak tanıyan kullanıcı dostu arayüz.
+*   ** Dinamik Analiz:** Firewall, Kimlik Doğrulama (Auth) ve Ağ (Network) loglarını türlerine özgü kriterlerle inceler.
+*   ** Akıllı Skorlama:** Her log türü için 0.0 - 10.0 arasında özelleştirilmiş risk puanlaması yapar.
+*   ** Anlık Raporlama:** Hesaplanan skorlara göre logları anında kategorize eder.
+*   ** Etkileşimli Arayüz:** Kullanıcı dostu konsol menüsü ile çalışma anında veri girişi ve analiz imkanı sağlar.
 
-## Teknik Detaylar
+---
 
-Bu sistem, siber güvenlik dünyasındaki SOC (Security Operations Center) süreçlerinin temel mantığını koda dökmektedir:
+## Teknik Detaylar & Risk Analizi
 
-*   **Firewall Denetimi:** Kritik portlara (SSH, FTP vb.) yönelik erişim isteklerini denetler.
-*   **Brute Force Tespiti:** Hatalı giriş deneme sayılarını analiz ederek hesap güvenliğini kontrol eder.
-*   **Veri Sızıntısı Analizi:** Giren ve çıkan veri miktarı arasındaki anomalileri tespit eder.
+Sistem, siber güvenlik dünyasındaki SOC süreçlerini şu üç ana başlıkta simüle eder:
 
-## Kullanılan Yazılım Mimarisi
+| Log Türü | Analiz Kapsamı | Örnek Senaryo |
+| :--- | :--- | :--- |
+| **Firewall** | Port denetimi | Kritik portlara (SSH, FTP) erişim istekleri. |
+| **Auth** | Brute Force tespiti | Hatalı giriş deneme sayılarının analizi. |
+| **Network** | Veri Sızıntısı (Exfiltration) | Giren/Çıkan veri miktarı arasındaki anomaliler. |
 
-Proje, sürdürülebilir ve genişletilebilir bir yapı için **Nesne Yönelimli Programlama (OOP)** prensipleri üzerine inşa edilmiştir:
+### ⚠️ Risk Seviyeleri
+| Skor Aralığı | Durum |
+| :--- | :--- |
+| **0.0 - 4.0** | ✅ GÜVENLİ |
+| **4.0 - 7.5** | ⚠️ ŞÜPHELİ |
+| **7.5 - 10.0** | 🚨 KRİTİK |
 
-*   **Kalıtım & Soyutlama (Inheritance & Abstraction):** Tüm log türleri tek bir soyut `Log` sınıfından türetilmiştir.
-*   **Çok Biçimlilik (Polymorphism):** `LogManager` sınıfı, farklı türdeki tüm logları tek bir listede işleyebilmektedir.
-*   **Kapsülleme (Encapsulation):** Log verileri erişim belirleyicilerle korunarak sistem güvenliği kod seviyesinde sağlanmıştır.
+---
+
+## Kullanılan Yazılım Mimarisi (OOP)
+
+Proje, sürdürülebilir ve genişletilebilir bir yapı için şu prensipler üzerine inşa edilmiştir:
+
+*   **Kalıtım & Soyutlama (Inheritance & Abstraction):** Tüm log türleri, ortak özellikleri barındıran soyut bir `Log` sınıfından türetilmiştir.
+*   **Çok Biçimlilik (Polymorphism):** `LogYonetim` sınıfı, farklı türdeki tüm logları tek bir `ArrayList` içinde dinamik olarak işleyebilir.
+*   **Kapsülleme (Encapsulation):** Log verileri `private` erişim belirleyicilerle korunarak veri bütünlüğü sağlanmıştır.
+
+---
 
 ## Nasıl Çalıştırılır?
 
@@ -32,6 +49,3 @@ Proje, sürdürülebilir ve genişletilebilir bir yapı için **Nesne Yönelimli
 3.  `Main.java` dosyasını VS Code veya tercih ettiğiniz bir IDE ile açın.
 4.  `Main.java` dosyasını derleyip çalıştırın.
 5.  Terminal ekranındaki yönergeleri izleyerek sisteme log verisi girişi yapabilir ve analiz sonuçlarını görüntüleyebilirsiniz.
-
----
-*Bu proje Bilecik Şeyh Edebali Üniversitesi Bilgisayar Mühendisliği eğitimi kapsamında geliştirilmiştir.*
