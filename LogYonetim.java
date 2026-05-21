@@ -1,12 +1,19 @@
-import java.util.ArrayList;       // esnek/dinamik dizi yapısıdır
+import java.util.ArrayList;
 import java.util.List;
+/*
+ * Sistemdeki tüm logların merkezi yönetimini ve analizini üstlenen sınıftır.
+ * Polymorphism (Çok biçimlilik) kullanarak farklı log türlerini tek bir listede 
+ * toplar ve ortak risk değerlendirme kriterlerine göre raporlar.
+ */
 
 public class LogYonetim {
-    private List<Log> logListesi;      // logListesi adında değişken tanımladık. Tipi:Log. Log sınıfından miras alan nesneleri bir listede tutacağım.
+    
+    private List<Log> logListesi;      // Log sınıfından türeyen tüm nesneleri bir arada tutan dinamik liste.
+                                      // (logListesi adında değişken tanımladık) (Tipi: Log)
 
     public LogYonetim(){
 
-        this.logListesi = new ArrayList<>();   // logListesi adında dinamik dizi oluşturdum.
+        this.logListesi = new ArrayList<>();    // Log yönetim sistemini başlatan ve bellek üzerinde dinamik diziyi (ArrayList) ayıran constructor.
     }
 
     public void logEkle (Log yeniLog) {
@@ -14,21 +21,20 @@ public class LogYonetim {
     }
 
     public void tumLoglariAnalizEt(){
-        double skor;
-        String seviye;
-
         System.out.println("\n--GUVENLIK ANALIZ RAPORU--");
 
-        for(int i = 0; i < logListesi.size(); i++){
+        for(Log incelenenLog : logListesi){     // for-each dögüsü, logListesi içindeki her bir Log nesnesini sırayla getir ve döngü boyunca ona incelenenLog adını ver.
 
-            Log incelenenLog = logListesi.get(i);
-            skor = incelenenLog.riskSkoruHesapla();
-            
-            if(skor >= 7.5){
+            double skor = incelenenLog.riskSkoruHesapla();
+            String seviye;
+
+            if (skor >= 7.5) {
                 seviye = "KRITIK";
-            } else if(skor >= 4.0){
+            } 
+            else if (skor >= 4.0) {
                 seviye = "SUPHELI";
-            } else {
+            } 
+            else {
                 seviye = "GUVENLI";
             }
 
