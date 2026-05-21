@@ -1,78 +1,89 @@
 import java.util.Scanner;
+/*
+ * Siber Güvenlik Log Analiz Sistemi'nin ana giriş sınıfıdır.
+ * Kullanıcıdan konsol aracılığıyla log verilerini alır, ilgili log nesnelerini
+ * oluşturur ve analiz edilmek üzere LogYonetim sistemine aktarır.
+ */
 
 public class Main {
     public static void main(String[] args){
 
-        Scanner scanner = new Scanner(System.in);
-        LogYonetim yonetici = new LogYonetim();
+        Scanner scan = new Scanner(System.in);      // Konsol girdilerini okumak için scanner nesnesi başlatıldı.
+        LogYonetim yonetici = new LogYonetim();    // Log ekleme ve analiz işlemlerini üstlenen yönetim sınıfı nesnesi oluşturuldu.
 
-        boolean devamEt = true;
+        boolean devamEt = true;     // Konsol menüsünün kontrolünü sağlayan döngü bayrağı.
 
-        System.out.println("\n\n--- SİBER GÜVENLİK LOG ANALİZ SİSTEMİNE HOŞ GELDİNİZ ---");
+        System.out.println("\n\n--- SIBER GUVENLIK LOG ANALIZ SISTEMINE HOS GELDINIZ ---");
 
         while (devamEt) {
-            System.out.println("\nEklenecek Log Türünü Seçiniz:\n");
+            System.out.println("\nEklenecek Log Turunu Seciniz:\n");
             System.out.println("1- Firewall Log");
-            System.out.println("2- Auth (Giriş) Log");
+            System.out.println("2- Auth (Giris) Log");
             System.out.println("3- Network Log");
-            System.out.println("4- Analiz Raporunu Göster ve Çık");
-            System.out.print("\nSeçiminiz: ");
+            System.out.println("4- Analiz Raporunu Goster ve Cık");
+            System.out.print("\nSeciminiz: ");
             
-            int secim = scanner.nextInt();
-            scanner.nextLine(); // Boşluk karakterini temizlemek için
+            int secim = scan.nextInt();
+            scan.nextLine();    // Menü seçiminden kalan Enter (\n) karakterini temizler.
 
             if (secim == 4) {
                 devamEt = false;
                 break;
             }
 
-            // Ortak verileri alalım
+            // Ortak verilerin alınması.
             System.out.print("\nLog ID: ");
-            String id = scanner.nextLine();
+            String id = scan.nextLine();
             System.out.print("Kaynak IP: ");
-            String ip = scanner.nextLine();
+            String ip = scan.nextLine();
             System.out.print("Cihaz Adı: ");
-            String cihaz = scanner.nextLine();
+            String cihaz = scan.nextLine();
 
+            // Seçilen log türüne özgü detay verilerin alınması ve nesneye dönüştürülmesi.
             switch (secim) {
                 case 1:
                     System.out.print("\nHedef Port: ");
-                    int port = scanner.nextInt(); 
+                    int port = scan.nextInt(); 
 
-                    scanner.nextLine();          // KRİTİK: Tampon bellekteki Enter karakterini temizle
+                    scan.nextLine();          
 
                     System.out.print("Protokol (TCP/UDP): ");
-                    String protokol = scanner.nextLine();
+                    String protokol = scan.nextLine();
 
-                    yonetici.logEkle(new FirewallLog(id, ip, cihaz, port, protokol));  
+                    yonetici.logEkle(new FirewallLog(id, ip, cihaz, port, protokol));       // Polymorphism (Çok Biçimlilik) kullanılarak log yöneticisine ekleme yapılıyor.
+
                     break;
                 case 2:
                     System.out.print("\nKullanıcı Adı: ");
-                    String user = scanner.nextLine();
+                    String user = scan.nextLine();
 
                     System.out.print("Hatalı Giriş Deneme Sayısı: ");
-                    int deneme = scanner.nextInt();
+                    int deneme = scan.nextInt();
 
                     yonetici.logEkle(new AuthLog(id, ip, cihaz, user, deneme));
+
                     break;
                 case 3:
                     System.out.print("\nÇıkan Veri (MB): ");
-                    double cikan = scanner.nextDouble();
+                    double cikan = scan.nextDouble();
 
                     System.out.print("Giren Veri (MB): ");
-                    double giren = scanner.nextDouble();
+                    double giren = scan.nextDouble();
 
                     yonetici.logEkle(new NetworkLog(id, ip, cihaz, cikan, giren));
+
                     break;
                 default:
                     System.out.println("Geçersiz seçim!");
             }
         }
 
-        // Programdan çıkmadan önce tüm logları analiz et
+        // Programdan çıkmadan önce tüm log verilerinin risk analiz çıktısı üretiliyor.
+        System.out.println("\n--- ANALİZ BAŞLATILIYOR ---");
         yonetici.tumLoglariAnalizEt();
+
         System.out.println("# Sistem Kapatılıyor... #");
-        scanner.close();
+        scan.close();
 
 
     }
