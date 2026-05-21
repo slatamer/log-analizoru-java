@@ -1,26 +1,28 @@
 import java.time.LocalDateTime;
-
-// 'abstract' anahtar kelimesi, bu sınıftan doğrudan nesne üretilmesini engeller.
-// Yani kimse "boş bir log" oluşturamaz, mutlaka alt sınıflardan (Firewall, Auth vb.) türetilmelidir.
+/*
+ * Sistemdeki tüm log türlerinin türediği soyut temel sınıftır.
+ * Bu sınıftan doğrudan nesne üretilemez.
+ * Ortak log özelliklerini barındıran ve alt sınıfları kendi risk skorlarını hesaplamaya zorlar.
+ */
 
 public abstract class Log {
-    private String ID;
-    private String kaynakIP;
+    private final String id;        // Log verilerinin dışarıdan manipülasyonu (private) ve sonradan değiştirilmesi (final) engelenir.
+    private final String kaynakIP;
     private String cihazAdi;
-    private LocalDateTime zaman;
+    private final LocalDateTime zaman;
 
-    public Log (String ID, String kaynakIP, String cihazAdi){
-        this.ID = ID;
+    public Log (String ID, String kaynakIP, String cihazAdi){       // Yeni bir log kaydı başlatmak için kullanılan kurucu metot.
+        this.id = ID;
         this.kaynakIP = kaynakIP;
         this.cihazAdi = cihazAdi;
-        this.zaman = LocalDateTime.now();    // Log oluşturulduğu anın tarihini otomatik alır.
+        this.zaman = LocalDateTime.now();    // Logun oluşturulduğu anın zaman damgası otomatik olarak sistemden alınır.
     }
 
-    public abstract double riskSkoruHesapla();
+    public abstract double riskSkoruHesapla();      // Her log türü sınıf kendi için bu fonksiyonu ovverride edecek. 
 
     //Private değişkenlere erişim.
     public String getID(){
-        return ID;
+        return id;
     }
     public String getKaynakIP(){
         return kaynakIP;
@@ -36,6 +38,6 @@ public abstract class Log {
     }
 
     public void logBilgisiniYaz(){
-        System.out.println("[" + zaman + "]  ID: " +ID + " | Kaynak: " + kaynakIP + " | Cihaz: " + cihazAdi );
+        System.out.println("[" + zaman + "]  ID: " + id + " | Kaynak: " + kaynakIP + " | Cihaz: " + cihazAdi );
     }
 }
