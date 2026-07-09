@@ -33,5 +33,11 @@ public class FirewallLog extends Log {
 
         // Risk skorunun siber güvenlik standartları gereği en fazla 10.0 olabilmesini garanti eder.
         return Math.min(skor, 10.0);    // Math.min: Parantez içindeki küçük olan sayıyı seçer.
-    }                                     // Bu yapıyı kullanmak risk skoru 10'dan büyük çıksa bile max olarak 10 almamızı sağlar.                                                                                            
+    }                                     // Bu yapıyı kullanmak risk skoru 10'dan büyük çıksa bile max olarak 10 almamızı sağlar.    
+
+    @Override
+    public void logBilgisiniYaz() {
+        super.logBilgisiniYaz();
+        System.out.println("-> Port: " + port + " | Protokol: " + protokol + " | Risk Skoru: " + skor);
+    }
 }                                        
