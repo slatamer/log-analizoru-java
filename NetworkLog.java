@@ -32,4 +32,10 @@ public class NetworkLog extends Log{
 
         return Math.min(skor, 10.0);
     }
+
+    @Override
+    public void logBilgisiniYaz() {
+        super.logBilgisiniYaz();
+        System.out.println("-> Cikan Veri: " + cikanVeri + " | Giren Veri: " + girenVeri);
+    }
 }
