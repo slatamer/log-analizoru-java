@@ -32,4 +32,10 @@ public class AuthLog extends Log {
 
         return Math.min(skor, 10.0);
     }
+
+    @Override
+    public void logBilgisiniYaz() {
+        super.logBilgisiniYaz();
+        System.out.println("-> Hedef Kullanıcı: " + kullaniciAdi + " | Hatalı Deneme: " + denemeSayisi);
+    }
 }
