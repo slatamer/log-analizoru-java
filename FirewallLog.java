@@ -40,4 +40,4 @@ public class FirewallLog extends Log {
         super.logBilgisiniYaz();
         System.out.println("-> Port: " + port + " | Protokol: " + protokol);
     }
-}                                        
+}
