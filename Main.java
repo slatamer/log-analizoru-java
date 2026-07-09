@@ -59,6 +59,7 @@ public class Main {
 
                     System.out.print("Hatalı Giriş Deneme Sayısı: ");
                     int deneme = scan.nextInt();
+                    scan.nextLine();
 
                     yonetici.logEkle(new AuthLog(id, ip, cihaz, user, deneme));
 
@@ -69,6 +70,7 @@ public class Main {
 
                     System.out.print("Giren Veri (MB): ");
                     double giren = scan.nextDouble();
+                    scan.nextLine();
 
                     yonetici.logEkle(new NetworkLog(id, ip, cihaz, cikan, giren));
 
