@@ -38,6 +38,6 @@ public class FirewallLog extends Log {
     @Override
     public void logBilgisiniYaz() {
         super.logBilgisiniYaz();
-        System.out.println("-> Port: " + port + " | Protokol: " + protokol + " | Risk Skoru: " + skor);
+        System.out.println("-> Port: " + port + " | Protokol: " + protokol);
     }
 }                                        
