@@ -36,6 +36,6 @@ public class AuthLog extends Log {
     @Override
     public void logBilgisiniYaz() {
         super.logBilgisiniYaz();
-        System.out.println("-> Hedef Kullanıcı: " + kullaniciAdi + " | Hatalı Deneme: " + denemeSayisi);
+        System.out.println("-> Hedef Kullanıcı: " + kullaniciAdi + " | Hatalı Deneme: " + denemeSayisi + " | Risk Skoru: " + skor);
     }
 }
